@@ -1,0 +1,45 @@
+name: CI/CD
+
+# 'main' branch로 push 또는 pull request가 일어나 경우 해당 workflow가 실행된다.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# workflow는 여러개의 job으로 구성되고 job는 또 여러개의 steps로 이루어진다.
+jobs:
+  build:
+  	# OS 환경
+    runs-on: ubuntu-latest
+	
+    # JDK 설정 
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+      	# 자바버전 11
+        java-version: '11'
+        # 이전에는 'adopt'를 사용했는데 현재는 temurin을 사용하기를 권장하고 있음
+        distribution: 'temurin'
+    
+    # Gradle build
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    
+    - name: run build
+      # test는 건너뛰고 build
+      run: ./gradlew clean build -x test
+
+      # build + test
+    - name: Build with Gradle
+      run: ./gradlew build
+      
+    # test에서 에러나는지 확인
+    - name: run test
+      run: ./gradlew test
+    
+    # test는 건너뛰고 build -> build에서 에러나는지 확인
+    - name: run build
+      run: ./gradlew clean build -x test
