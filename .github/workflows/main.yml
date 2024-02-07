@@ -1,0 +1,44 @@
+name: CI/CD
+
+# 'main' branch로 push 또는 pull request가 일어나 경우 해당 workflow가 실행된다
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    # permissions:
+    #   contents: read
+    
+    # JDK 설정
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    # Gradle build
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    
+    - name: run build
+      # test는 건너뛰고 build
+      run: ./gradlew clean build -x test
+
+      # build + test
+    - name: Build with Gradle
+      run: ./gradlew build
+      
+    # test에서 에러나는지 확인
+    - name: run test
+      run: ./gradlew test
+    
+    # test는 건너뛰고 build -> build에서 에러나는지 확인
+    - name: run build
+      run: ./gradlew clean build -x test
