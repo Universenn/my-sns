@@ -54,5 +54,5 @@ jobs:
     steps:
       - name: Docker run
         run: |
-              docker ps -q --filter "name=my-sns" | grep -q . && docker stop "my-sns" && docker rm  "my-sns" && docker rmi  "wooju98/my-sns:latest"
+              docker ps -q --filter "name=my-sns" | grep -q . && docker stop "my-sns" && docker rm "my-sns" && docker rmi "wooju98/my-sns:latest"
               docker run -d --name my-sns -p 8080:8080 wooju98/my-sns:latest
