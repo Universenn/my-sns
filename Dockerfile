@@ -1,7 +1,7 @@
 FROM openjdk:11.0-slim
 
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} app.jar
+WORKDIR /app
+COPY /build/libs/*-SNAPSHOT.jar ./app.jar
 
 EXPOSE 8080
 
