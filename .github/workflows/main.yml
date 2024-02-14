@@ -46,7 +46,7 @@ jobs:
         docker tag $REPO $NAME/$REPO
         docker push $NAME/$REPO
 
- 배포 스크립트 작성
+ # 배포 스크립트 작성
   deploy:
     needs: build
     name: Deploy
