@@ -43,8 +43,8 @@ jobs:
         REPO: my-sns
       run: |
         docker build -t $REPO .
-        docker tag $REPO $NAME/$REPO
-        docker push $NAME/$REPO
+        docker tag $REPO:latest $NAME/$REPO:latest
+        docker push $NAME/$REPO:latest
 
  # 배포 스크립트 작성
   deploy:
