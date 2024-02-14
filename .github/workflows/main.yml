@@ -43,21 +43,21 @@ jobs:
         REPO: my-sns
       run: |
         docker build -t $REPO .
-        docker tag $REPO:latest $NAME/$REPO:latest
-        docker push $NAME/$REPO:latest
+        docker tag $REPO $NAME/$REPO
+        docker push $NAME/$REPO
 
  # 배포 스크립트 작성
-  deploy:
-    needs: build
-    name: Deploy
-    runs-on: [ self-hosted, label-development ]
-    steps:
-      - name: Docker run
-        run: |
-              sudo docker ps -q --filter "name=my-sns" | grep -q . && sudo docker stop "my-sns" && sudo docker rmi  "wooju98/my-sns:latest"
-              sudo docker run -d --name my-sns --rm -p 8080:8080 \
-              -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
-              -e SPRING_DATASOURCE_URL=jdbc:mysql://${{ secrets.EC2_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }} \
-              -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} \
-              -e JWT_TOKEN_SECRET=${{ secrets.JWT_TOKEN_SECRET }} \
-              ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
+  # deploy:
+  #   needs: build
+  #   name: Deploy
+  #   runs-on: [ self-hosted, label-development ]
+  #   steps:
+  #     - name: Docker run
+  #       run: |
+  #             sudo docker ps -q --filter "name=my-sns" | grep -q . && sudo docker stop "my-sns" && sudo docker rmi  "wooju98/my-sns:latest"
+  #             sudo docker run -d --name my-sns --rm -p 8080:8080 \
+  #             -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
+  #             -e SPRING_DATASOURCE_URL=jdbc:mysql://${{ secrets.EC2_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }} \
+  #             -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} \
+  #             -e JWT_TOKEN_SECRET=${{ secrets.JWT_TOKEN_SECRET }} \
+  #             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
