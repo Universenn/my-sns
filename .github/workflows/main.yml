@@ -54,4 +54,9 @@ jobs:
               sudo docker stop ${{ secrets.DOCKER_REPO }}
               sudo docker rm ${{ secrets.DOCKER_REPO }}
               sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
-              sudo docker run -p 8080:8080 -d --name my-sns -e SPRING_DATASOURCE_URL=jdbc:mysql://ec2-3-34-50-49.ap-northeast-2.compute.amazonaws.com:3306/my-sns-db -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} -e JWT_TOKEN_SECRET=${{ secrets.JWT_TOKEN_SECRET }} -e SPRING_DATASOURCE_USERNAME=root wooju98/my-sns:latest
+              sudo docker run -p 8080:8080 -d --name ${{ secrets.DOCKER_REPO }} \
+              -e SPRING_DATASOURCE_URL=jdbc:mysql://${{ secrets.EC2_HOST }}:3306/my-sns-db \
+              -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
+              -e JWT_TOKEN_SECRET=${{ secrets.JWT_TOKEN_SECRET }} \
+              -e SPRING_DATASOURCE_USERNAME=root \
+              ${{secrets.DOCKER_USERNAME}}/${{ secrets.DOCKER_REPO }}:latest
