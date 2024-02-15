@@ -38,17 +38,14 @@ jobs:
         password: ${{secrets.DOCKERHUB_TOKEN}}
     
     # docker 이미지 빌드 + docker hub push
-    # - name: build and release to DockerHub
-    #   env:
-    #     NAME: wooju98
-    #     REPO: my-sns
-    #   run: |
-    #     docker build -t $REPO .
-    #     docker tag $REPO:latest $NAME/$REPO:latest
-    #     docker push $NAME/$REPO:latest
-    # docker pull
-    - name: docker pull
+    - name: build and release to DockerHub
+      env:
+        NAME: wooju98
+        REPO: my-sns
       run: |
+        docker build -t $REPO .
+        docker tag $REPO:latest $NAME/$REPO:latest
+        docker push $NAME/$REPO:latest
         docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
         
  # 배포 스크립트 작성
