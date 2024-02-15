@@ -46,7 +46,6 @@ jobs:
         docker build -t $REPO .
         docker tag $REPO:latest $NAME/$REPO:latest
         docker push $NAME/$REPO:latest
-        docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
         
  # 배포 스크립트 작성
   deploy:
@@ -56,7 +55,9 @@ jobs:
     steps:
       - name: Docker run
         run: |
-              sudo docker ps -q --filter "name=my-sns" | grep -q . && sudo docker stop "my-sns" && sudo docker rmi  "wooju98/my-sns:latest"
+              sudo docker stop -f ${{ secrets.DOCKER_REPO }}
+              sudo docker rm -f ${{ secrets.DOCKER_REPO }}
+              sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
               sudo docker run -d --name my-sns --rm -p 8080:8080 \
               -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
               -e SPRING_DATASOURCE_URL=jdbc:mysql://${{ secrets.EC2_HOST }}:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }} \
