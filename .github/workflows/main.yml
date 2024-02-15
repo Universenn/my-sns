@@ -54,8 +54,8 @@ jobs:
     steps:
       - name: Docker run
         run: |
-              sudo docker stop -f ${{ secrets.DOCKER_REPO }}
-              sudo docker rm -f ${{ secrets.DOCKER_REPO }}
+              sudo docker stop ${{ secrets.DOCKER_REPO }}
+              sudo docker rm ${{ secrets.DOCKER_REPO }}
               sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
               sudo docker run -d --name my-sns --rm -p 8080:8080 \
               -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
