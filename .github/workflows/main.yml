@@ -1,3 +1,4 @@
+
 name: CI/CD
 
 on:
@@ -45,7 +46,6 @@ jobs:
         docker build -t $REPO .
         docker tag $REPO:latest $NAME/$REPO:latest
         docker push $NAME/$REPO:latest
-
  # 배포 스크립트 작성
   deploy:
     needs: build
