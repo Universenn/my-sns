@@ -24,7 +24,7 @@ public class PostRestController {
     private final PostService postService;
 
     @PostMapping
-    public Response<PostResultResponse> join(Principal principal, @RequestBody PostRequest postRequest){
+    public Response<PostResultResponse> create(Principal principal, @RequestBody PostRequest postRequest){
         String email = principal.getName();
         Long postId = postService.create(email, postRequest);
         log.info("delete controller post :{}", postId);
