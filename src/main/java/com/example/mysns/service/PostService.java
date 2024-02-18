@@ -24,7 +24,7 @@ public class PostService {
 
     // 게시글 등록
     public Long create(String email, PostRequest dto) {
-        User user = userValid(email);
+        User user = findUserByEmail(email);
         Post post = postRepository.save(dto.toEntity(user));
         log.info("create service post :{}", post.getUser().getNickname());
         return post.getId();
@@ -103,13 +103,4 @@ public class PostService {
         });
     }
 
-
-    // 해당 회원 확인
-    public User userValid(String email) {
-        log.info("valid email :{}", email);
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(
-                        ErrorCode.EMAIL_NOT_FOUND,
-                        ErrorCode.EMAIL_NOT_FOUND.getMessage()));
-    }
 }
