@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.13'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
+    id 'jacoco'
 }
 
 group = 'com.example'
@@ -47,6 +49,51 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+
+jacoco {
+    //  JaCoCo 버전
+    toolVersion = '0.8.8'
+}
+
+jacocoTestReport {
+    reports {
+        // 원하는 리포트를 켜고 끌 수 있습니다.
+        html.enabled true
+        xml.enabled false
+        csv.enabled false
+
+        afterEvaluate {
+            classDirectories.setFrom(
+                    files(classDirectories.files.collect {
+                        fileTree(dir: it, includes: [
+                                'com/example/mysns/controller/*',
+                                'com/example/mysns/service/*',
+                        ])
+                    })
+            )
+        }
+
+        //리포트 위치 지정
+        html.destination file('build/reports/myReport.html')
+    }
+
+    finalizedBy 'jacocoTestCoverageVerification'
+}
+jacocoTestCoverageVerification{
+    violationRules {
+        rule {
+            enabled = true // 활성화
+            element = 'CLASS' // 클래스 단위로 커버리지 체크
+            includes = [
+                    '**/restController*',
+                    '**/service'
+            ]
+
+        }
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
 }
