@@ -1,11 +1,13 @@
 package com.example.mysns.service;
 
-import com.example.mysns.dto.post.PostRequest;
 import com.example.mysns.dto.post.PostDetailResponse;
+import com.example.mysns.dto.post.PostRequest;
 import com.example.mysns.entity.Post;
+import com.example.mysns.entity.PostLike;
 import com.example.mysns.entity.User;
 import com.example.mysns.exception.AppException;
 import com.example.mysns.exception.ErrorCode;
+import com.example.mysns.repository.PostLikeRepository;
 import com.example.mysns.repository.PostRepository;
 import com.example.mysns.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Slf4j
 public class PostService {
+    private final PostLikeRepository postLikeRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
@@ -103,4 +106,18 @@ public class PostService {
         });
     }
 
+    // 좋아요
+    public boolean likes(Long id, String email){
+        Post post = findPostById(id);
+        User user = findUserByEmail(email);
+
+        PostLike postLike = postLikeRepository.findByPostAndUser(post, user).orElse(PostLike.of(post, user));
+
+        boolean likes = postLike.likes();
+
+        postLikeRepository.save(postLike);
+
+
+        return likes;
+    }
 }

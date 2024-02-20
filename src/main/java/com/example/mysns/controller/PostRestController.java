@@ -65,4 +65,16 @@ public class PostRestController {
         Page<PostDetailResponse> responses = postService.findByUserAll(principal.getName(), pageable);
         return Response.success(responses);
     }
+
+
+    @PostMapping("/{id}/likes")
+    public Response<String> likes(Principal principal, @PathVariable Long id) {
+        boolean likes = postService.likes(id, principal.getName());
+
+        return Response.success(likes ? "좋아요를 눌렀습니다" : "좋아요를 취소했습니다");
+    }
+    @GetMapping("/{id}/likes")
+    public Response<Integer> getLikes(@PathVariable Long id) {
+        return Response.success(postService.findById(id).getLikes());
+    }
 }

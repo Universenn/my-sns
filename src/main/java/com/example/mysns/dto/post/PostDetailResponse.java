@@ -19,6 +19,7 @@ public class PostDetailResponse {
     private String title;
     private String body;
     private String nickname;
+    private int likes;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
@@ -32,6 +33,7 @@ public class PostDetailResponse {
                 .nickname(post.getUser().getNickname())
                 .createdAt(post.getCreatedDateTime())
                 .lastModifiedAt(post.getLastModifiedDateTime())
+                .likes(post.getLikes())
                 .build();
     }
 

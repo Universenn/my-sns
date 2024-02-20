@@ -21,12 +21,21 @@ public class Post extends BaseEntity{
     private String title;
     private String body;
 
+    private int likes;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
     private User user;
 
     public void update(Post update) {
         this.title = update.getTitle();
         this.body = update.getBody();
+    }
+
+    public synchronized void likes() {
+        likes++;
+    }
+
+    public synchronized void unlikes() {
+        if (likes > 0) likes--;
     }
 }
