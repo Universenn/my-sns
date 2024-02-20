@@ -33,7 +33,7 @@ public class UserRestController {
 
     @PostMapping("/login")
     @ApiOperation(value="로그인", notes="email 과 password 를 이용해 로그인을 할 수 있습니다.")
-    public Response<UserLoginResponse> join(@RequestBody UserLoginRequest dto){
+    public Response<UserLoginResponse> login(@RequestBody UserLoginRequest dto){
         return Response.success(userService.login(dto));
     }
 }
