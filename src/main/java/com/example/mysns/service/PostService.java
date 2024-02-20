@@ -2,16 +2,19 @@ package com.example.mysns.service;
 
 import com.example.mysns.dto.post.PostDetailResponse;
 import com.example.mysns.dto.post.PostRequest;
+import com.example.mysns.entity.AlarmType;
 import com.example.mysns.entity.Post;
 import com.example.mysns.entity.PostLike;
 import com.example.mysns.entity.User;
 import com.example.mysns.exception.AppException;
 import com.example.mysns.exception.ErrorCode;
+import com.example.mysns.observer.events.AlarmEvent;
 import com.example.mysns.repository.PostLikeRepository;
 import com.example.mysns.repository.PostRepository;
 import com.example.mysns.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,8 @@ public class PostService {
     private final PostLikeRepository postLikeRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final ApplicationEventPublisher publisher;
+
 
     // 게시글 등록
     public Long create(String email, PostRequest dto) {
@@ -117,6 +122,7 @@ public class PostService {
 
         postLikeRepository.save(postLike);
 
+        if (likes) publisher.publishEvent(AlarmEvent.of(AlarmType.NEW_LIKE_ON_POST, post.getUser(), user));
 
         return likes;
     }

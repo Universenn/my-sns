@@ -9,14 +9,18 @@ import com.example.mysns.entity.Post;
 import com.example.mysns.entity.User;
 import com.example.mysns.exception.AppException;
 import com.example.mysns.exception.ErrorCode;
+import com.example.mysns.observer.events.AlarmEvent;
 import com.example.mysns.repository.CommentRepository;
 import com.example.mysns.repository.PostRepository;
 import com.example.mysns.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.example.mysns.entity.AlarmType.NEW_COMMENT_ON_POST;
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +28,16 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final ApplicationEventPublisher publisher;
+
 
     @Transactional
     public CommentResponse writeComment(CommentRequest dto, String email, Long id) {
         User user = findUserByEmail(email);
 
         Post post = findPostById(id);
+
+        publisher.publishEvent(AlarmEvent.of(NEW_COMMENT_ON_POST, post.getUser(), user));
 
         return CommentResponse.of(commentRepository.save(dto.toEntity(post, user)));
     }
