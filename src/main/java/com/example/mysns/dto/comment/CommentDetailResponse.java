@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class CommentDetailResponse {
     private Long id;
     private String comment;
-    private String userName;
+    private String nickname;
     private Long postId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
@@ -28,7 +28,7 @@ public class CommentDetailResponse {
         return CommentDetailResponse.builder()
                 .id(comment.getId())
                 .comment(comment.getComment())
-                .userName(comment.getUser().getEmail())
+                .nickname(comment.getUser().getNickname())
                 .postId(comment.getPost().getId())
                 .createdAt(comment.getCreatedDateTime())
                 .lastModifiedAt(comment.getLastModifiedDateTime())

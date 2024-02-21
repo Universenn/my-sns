@@ -17,7 +17,7 @@ public class CommentResponse {
 
     private Long id;
     private String comment;
-    private String userName;
+    private String nickname;
     private Long postId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
@@ -26,7 +26,7 @@ public class CommentResponse {
         return CommentResponse.builder()
                 .id(comment.getId())
                 .comment(comment.getComment())
-                .userName(comment.getUser().getEmail())
+                .nickname(comment.getUser().getNickname())
                 .postId(comment.getPost().getId())
                 .createdAt(comment.getCreatedDateTime())
                 .build();
