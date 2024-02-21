@@ -15,11 +15,11 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @Builder
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     private String email;
     private String nickname;

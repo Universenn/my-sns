@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserJoinResponse {
-    private Long userId;
+    private Long id;
     private String email;
 
     public static UserJoinResponse of(User user) {
         return UserJoinResponse.builder()
-                .userId(user.getUserId())
+                .id(user.getId())
                 .email(user.getEmail())
                 .build();
     }
