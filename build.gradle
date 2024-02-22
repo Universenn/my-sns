@@ -65,10 +65,14 @@ jacocoTestReport {
         afterEvaluate {
             classDirectories.setFrom(
                     files(classDirectories.files.collect {
-                        fileTree(dir: it, includes: [
-                                'com/example/mysns/controller/*',
-                                'com/example/mysns/service/*',
-                        ])
+                        fileTree(dir: it,
+                                includes: [
+                                        'com/example/mysns/controller/*',
+                                        'com/example/mysns/service/*',
+                               ],
+                                excludes: [
+                                        'com/example/mysns/controller/HelloController**',
+                                ])
                     })
             )
         }
