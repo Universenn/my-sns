@@ -14,9 +14,8 @@
 - 데이터베이스 : MySql 8.0
 
 
-[//]: # (# Architecture)
-
-[//]: # (![img.png]&#40;assert/erd.png&#41;)
+# Architecture
+![erd.png](assert/architecture.png)
 
 # ERD
 ![erd.png](assert/erd.png)
