@@ -24,7 +24,7 @@
 ### Swagger
 API 자동 문서화 하여 보다 API 에 접근하기 편하게 하기 위해 Swagger를 추가 하였습니다.
 
-[Swagger 링크](http://ec2-3-239-189-46.compute-1.amazonaws.com:8080/swagger-ui/index.html)
+[Swagger 링크](http://ec2-100-27-6-78.compute-1.amazonaws.com:8080/swagger-ui/index.html)
 
 ### GitAction CI & CD 자동 배포화
 GitAction 을 통해 main에 push가 되면 자동 빌드 및 배포가 되게 하였습니다
