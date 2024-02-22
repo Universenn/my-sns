@@ -50,7 +50,7 @@ public class CommentRestController {
 
     @GetMapping("/{postId}/comments")
     @ApiOperation(value="댓글 조회", notes="해당 포스터 댓글 정보를 조회할 수 있습니다.")
-    public Response<Page<CommentDetailResponse>> findByPostId(@PathVariable Long postId, @PageableDefault(size = 15, sort = "createdDateTime", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Response<Page<CommentDetailResponse>> findByPostId(@PathVariable Long postId, @PageableDefault(size = 15, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         return Response.success(commentService.findById(pageable, postId));
     }
 }
