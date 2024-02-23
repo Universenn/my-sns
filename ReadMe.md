@@ -29,6 +29,10 @@ API 자동 문서화 하여 보다 API 에 접근하기 편하게 하기 위해 
 GitAction 을 통해 main에 push가 되면 자동 빌드 및 배포가 되게 하였습니다
 *** 
 
+### jacoco 를 이용한 테스트 코드 커버리지 향상
+![jacoco(Controller)](assert/jacoco(Controller).png)
+
+
 ### 회원 인증·인가
 - 모든 회원은 회원가입을 통해 회원이 됩니다.
 - 로그인한 회원은 글 작성, 글 수정, 글 삭제, 댓글 작성, 좋아요, 알림 기능이 가능합니다.
@@ -580,8 +584,3 @@ ex)
         }
       }
       ```
-
-[//]: # (      ![jacoco_before.png]&#40;assert/jacoco_before.png&#41;)
-
-[//]: # ()
-[//]: # ([//]: # &#40;      ![jacoco_after.png]&#40;assert/jacoco_after.png&#41;&#41;)
