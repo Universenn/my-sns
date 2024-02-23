@@ -20,7 +20,7 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
-@Api(tags = {"Post API"})
+@Api(tags = {"2_Post API"})
 public class PostRestController {
 
     private final PostService postService;

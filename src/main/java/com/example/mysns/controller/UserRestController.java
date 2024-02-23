@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(tags = {"User API"})
+@Api(tags = {"1_User API"})
 @RequestMapping("/api/v1/users")
 public class UserRestController {
 

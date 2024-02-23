@@ -20,7 +20,7 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/alarms")
-@Api(tags = {"Alarm API"})
+@Api(tags = {"4_Alarm API"})
 public class AlarmRestController {
 
     private final AlarmService alarmService;
